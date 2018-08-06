@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aprendendo IndexedDB</title>
+</head>
+<body>
+    <script src="js/app/models/Negociacao.js"></script>
+    <script>
+        var connection;
+        
+        var openRequest = window.indexedDB.open('aluraframe', 7);
+
+        openRequest.onupgradeneeded = e => {
+            console.log('Cria ou altera um banco de dados existente.');
+
+            var minhaConnection = e.target.result;
+            
+            if (minhaConnection.objectStoreNames.contains('negociacoes')) {
+                minhaConnection.deleteObjectStore('negociacoes');
+            }            
+            
+            minhaConnection.createObjectStore('negociacoes', {autoIncrement: true});
+        };
+
+        openRequest.onsuccess = e => {
+            console.log('Conexão obtida com sucesso.');
+
+            connection = e.target.result;
+        };
+
+        openRequest.onerror = e => {
+            console.log(e.target.error);
+        }
+
+        function adiciona() {
+            var transaction = connection.transaction(['negociacoes'], 'readwrite');
+            var store = transaction.objectStore('negociacoes');
+
+            var negociacao = new Negociacao(new Date(), 1, 200);
+
+            var request = store.add(negociacao);
+
+            request.onsuccess = e => {
+                console.log('Negociação incluida com sucesso.');
+            };
+
+            request.onerror = e => {
+                console.log('Não foi possível incluir a negociação;');
+            };
+        }
+
+        function listaTodos() {
+            var transaction = connection.transaction(['negociacoes'], 'readwrite');
+            var store = transaction.objectStore('negociacoes');
+
+            var cursor = store.openCursor();
+
+            var negociacoes = [];
+
+            // chamado em razão do store.openCursor(), fará com o que o regAtual aponte para o primeiro objeto da store
+            // chamado em razão do regAtual.continue(), fará com o que o regAtual aponte para o próximo objeto da store
+            cursor.onsuccess = e => {                
+                var regAtual = e.target.result;
+                if (regAtual) {
+                    /* dadosRegAtual não é uma negociação pois regAtual contem apenas
+                    os valores das propriedades - formato JSON  */
+                    let dadosRegAtual = regAtual.value;
+
+                    negociacoes.push(new Negociacao(dadosRegAtual._data, dadosRegAtual._quantidade, dadosRegAtual._valor));
+
+                    regAtual.continue();
+                } else {
+                    console.log(negociacoes);
+                }
+            };
+
+            cursor.onerror = e => {
+                console.log(e.target.error.name);
+            };
+        }
+    </script>
+</body>
+</html>
