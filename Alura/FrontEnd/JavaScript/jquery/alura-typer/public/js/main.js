@@ -12,8 +12,9 @@ campoDigitacao.on("input", function () {
     contadorPalavras.text(campoDigitacao.val().split(/\S+/).length - 1);
 });
 
-campoDigitacao.one("focus", function () {
-    tempoDigitacao = $("#tempo-digitacao").text();
+var disparaCronometro = function () {
+    var tempoDigitacao = tempoDigitacaoInicial;
+    
     var cronometroID = setInterval(function () {
         $("#tempo-digitacao").text(--tempoDigitacao);
         if (!tempoDigitacao) {
@@ -21,7 +22,9 @@ campoDigitacao.one("focus", function () {
             clearInterval(cronometroID);
         }
     }, 1000);
-});
+};
+
+campoDigitacao.one("focus", disparaCronometro);
 
 $("#botao-reiniciar").click(function () {
     $("#tempo-digitacao").text(tempoDigitacaoInicial);
@@ -31,4 +34,6 @@ $("#botao-reiniciar").click(function () {
 
     contadorCaracteres.text(0);
     contadorPalavras.text(0);
+
+    disparaCronometro();
 });
