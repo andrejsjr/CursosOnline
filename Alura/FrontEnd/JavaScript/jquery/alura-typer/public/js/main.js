@@ -27,30 +27,6 @@ function disparaCronometro() {
     }, 1000);
 };
 
-function inserePlacar() {
-    var usuario = "Jesus";
-    $(".placar").find("tbody").append(criaTrPlacar(usuario));
-};
-
-function criaTrPlacar(usuario) {
-    var tr = $("<tr>");
-    var tdUsuario = $("<td>").text(usuario);
-    var tdNoPalavras = $("<td>").text($("#contador-palavras").text());
-    var tdRemover = $("td");
-
-    var link = $("<a>").addClass("botao-remover").attr("href", "#");
-    var icone = $("<i>").addClass("small").addClass("material-icons").text("delete");
-
-    link.append(icone);
-    tdRemover.append(link);
-
-    tr.append(tdUsuario);
-    tr.append(tdNoPalavras);
-    tr.append(tdRemover);
-
-    return tr;
-};
-
 function reiniciaJogo() {
     $("#tempo-digitacao").text(tempoDigitacaoInicial);
 
