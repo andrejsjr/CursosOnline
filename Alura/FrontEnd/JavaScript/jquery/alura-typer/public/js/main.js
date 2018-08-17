@@ -66,9 +66,9 @@ function atribuiEventos() {
         atualizaBorda();
     });
     
-    $(".campo-digitacao").one("focus", disparaCronometro);
-    
+    $(".campo-digitacao").one("focus", disparaCronometro);    
     $("#botao-reiniciar").click(reiniciaJogo);
+    $("#botao-placar").click(mostraPlacar);
 };
 
 function atualizaTamanhoFrase() {

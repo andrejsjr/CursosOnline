@@ -29,3 +29,7 @@ function removeTrPlacar() {
     event.preventDefault();
     $(this).parent().parent().remove();
 };
+
+function mostraPlacar() {
+    $(".placar").slideToggle(800);
+};
