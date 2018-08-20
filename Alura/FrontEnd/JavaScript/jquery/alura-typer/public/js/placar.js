@@ -4,7 +4,15 @@ function inserePlacar() {
     var trPlacar = criaTrPlacar(usuario);
     trPlacar.find(".botao-remover").click(removeTrPlacar);
     $(".placar").find("tbody").append(trPlacar);
+
+    $(".placar").slideDown(500);
+    scrollPlacar();
 };
+
+function scrollPlacar() {
+    var posicaoPlacar = $('.placar').offset().top;
+    $('body').animate({ scrollTop: posicaoPlacar + 'px'}, 1000);
+}
 
 function criaTrPlacar(usuario) {
     var tr = $("<tr>");
@@ -26,10 +34,14 @@ function criaTrPlacar(usuario) {
 };
 
 function removeTrPlacar() {
-    event.preventDefault();
-    $(this).parent().parent().remove();
+    event.preventDefault();    
+    
+    $(this).parent().parent().fadeToggle(1000);
+    setTimeout(function () {
+        $(this).parent().parent().remove();        
+    }, 1000);
 };
 
 function mostraPlacar() {
-    $(".placar").slideToggle(800);
+    $(".placar").stop().slideToggle(800);
 };

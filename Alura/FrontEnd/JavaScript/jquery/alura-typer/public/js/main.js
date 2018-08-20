@@ -68,6 +68,7 @@ function atribuiEventos() {
     
     $(".campo-digitacao").one("focus", disparaCronometro);    
     $("#botao-reiniciar").click(reiniciaJogo);
+    $(".botao-remover").click(removeTrPlacar);
     $("#botao-placar").click(mostraPlacar);
 };
 
