@@ -10,7 +10,7 @@ function finalizaJogo() {
     $(".campo-digitacao").toggleClass("campo-desabilitado");
     $("#botao-reiniciar").attr("disabled", false);
     inserePlacar();
-};
+}
 
 function disparaCronometro() {    
     
@@ -25,7 +25,7 @@ function disparaCronometro() {
             finalizaJogo();
         }
     }, 1000);
-};
+}
 
 function reiniciaJogo() {
     $("#tempo-digitacao").text(tempoDigitacaoInicial);
@@ -40,7 +40,7 @@ function reiniciaJogo() {
     $("#contador-palavras").text(0);
     
     disparaCronometro();
-};
+}
 
 function atualizaBorda() {
     var comparavel = $(".frase").text().substr(0, $(".campo-digitacao").val().length);
@@ -57,7 +57,7 @@ function atualizaBorda() {
         $(".campo-digitacao").removeClass("campo-correto");
         $(".campo-digitacao").removeClass("campo-errado");
     }
-};
+}
 
 function atribuiEventos() {
     $(".campo-digitacao").on("input", function () {
@@ -70,9 +70,10 @@ function atribuiEventos() {
     $("#botao-reiniciar").click(reiniciaJogo);
     $(".botao-remover").click(removeTrPlacar);
     $("#botao-placar").click(mostraPlacar);
-};
+    $("#botao-frase").click(fraseAleatoria);
+}
 
 function atualizaTamanhoFrase() {
     var tamanhoFrase = $(".frase").text().split(" ").length;
     $("#tamanho-frase").text(tamanhoFrase);
-};
+}

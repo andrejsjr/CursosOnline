@@ -7,7 +7,7 @@ function inserePlacar() {
 
     $(".placar").slideDown(500);
     scrollPlacar();
-};
+}
 
 function scrollPlacar() {
     var posicaoPlacar = $('.placar').offset().top;
@@ -31,7 +31,7 @@ function criaTrPlacar(usuario) {
     tr.append(tdRemover);
 
     return tr;
-};
+}
 
 function removeTrPlacar() {
     event.preventDefault();    
@@ -40,8 +40,8 @@ function removeTrPlacar() {
     setTimeout(function () {
         $(this).parent().parent().remove();        
     }, 1000);
-};
+}
 
 function mostraPlacar() {
     $(".placar").stop().slideToggle(800);
-};
+}
