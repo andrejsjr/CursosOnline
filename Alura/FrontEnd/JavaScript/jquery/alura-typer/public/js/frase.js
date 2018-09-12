@@ -5,4 +5,6 @@ function fraseAleatoria() {
 function alteraFraseAleatoria(data) {
     var numAleatorio = Math.floor(Math.random() * data.length);
     $(".frase").text(data[numAleatorio].texto);
+    atualizaTamanhoFrase();
+    atualizaTempoInicial(data[numAleatorio].tempo);
 }

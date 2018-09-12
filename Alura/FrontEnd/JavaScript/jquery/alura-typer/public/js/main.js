@@ -12,8 +12,7 @@ function finalizaJogo() {
     inserePlacar();
 }
 
-function disparaCronometro() {    
-    
+function disparaCronometro() {
     var tempoDigitacao = tempoDigitacaoInicial;
     
     $("#botao-reiniciar").attr("disabled", true);
@@ -76,4 +75,9 @@ function atribuiEventos() {
 function atualizaTamanhoFrase() {
     var tamanhoFrase = $(".frase").text().split(" ").length;
     $("#tamanho-frase").text(tamanhoFrase);
+}
+
+function atualizaTempoInicial(tempo) {
+    tempoDigitacaoInicial = tempo;
+    $("#tempo-digitacao").text(tempo);
 }
