@@ -13,9 +13,9 @@ function finalizaJogo() {
 }
 
 function disparaCronometro() {
-    var tempoDigitacao = tempoDigitacaoInicial;
-    
     $("#botao-reiniciar").attr("disabled", true);
+    
+    var tempoDigitacao = tempoDigitacaoInicial;    
     
     var cronometroID = setInterval(function () {
         $("#tempo-digitacao").text(--tempoDigitacao);
