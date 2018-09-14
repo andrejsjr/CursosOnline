@@ -70,6 +70,7 @@ function atribuiEventos() {
     $(".botao-remover").click(removeTrPlacar);
     $("#botao-placar").click(mostraPlacar);
     $("#botao-frase").click(fraseAleatoria);
+    $("#botao-frase-id").click(buscaFrase);
 }
 
 function atualizaTamanhoFrase() {
