@@ -9,7 +9,8 @@ function finalizaJogo() {
     $(".campo-digitacao").attr("disabled", true);
     $(".campo-digitacao").toggleClass("campo-desabilitado");
     $("#botao-reiniciar").attr("disabled", false);
-    inserePlacar();
+    
+    inserePlacar("Jesus", $("#contador-palavras").text());
 }
 
 function disparaCronometro() {
@@ -69,6 +70,7 @@ function atribuiEventos() {
     $("#botao-reiniciar").click(reiniciaJogo);
     $(".botao-remover").click(removeTrPlacar);
     $("#botao-placar").click(mostraPlacar);
+    $("#botao-sync").click(sintonizaPlacar);
     $("#botao-frase").click(fraseAleatoria);
     $("#botao-frase-id").click(buscaFrase);
 }

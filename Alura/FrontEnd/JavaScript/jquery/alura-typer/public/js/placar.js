@@ -1,7 +1,5 @@
-function inserePlacar() {
-    var usuario = "Jesus";
-    
-    var trPlacar = criaTrPlacar(usuario);
+function inserePlacar(usuario, palavras) {
+    var trPlacar = criaTrPlacar(usuario, palavras);
     trPlacar.find(".botao-remover").click(removeTrPlacar);
     $(".placar").find("tbody").append(trPlacar);
 
@@ -14,10 +12,10 @@ function scrollPlacar() {
     $('body').animate({ scrollTop: posicaoPlacar + 'px'}, 1000);
 }
 
-function criaTrPlacar(usuario) {
+function criaTrPlacar(usuario, palavras) {
     var tr = $("<tr>");
     var tdUsuario = $("<td>").text(usuario);
-    var tdNoPalavras = $("<td>").text($("#contador-palavras").text());
+    var tdNoPalavras = $("<td>").text(palavras);
     var tdRemover = $("<td>");
 
     var link = $("<a>").addClass("botao-remover").attr("href", "#");
@@ -44,4 +42,22 @@ function removeTrPlacar() {
 
 function mostraPlacar() {
     $(".placar").stop().slideToggle(800);
+}
+
+function sintonizaPlacar() {
+    var placar = [];
+    
+    $("tbody>tr").each(function () {
+        placar.push({usuario: $(this).find("td:nth-child(1)").text(),
+                     pontos: $(this).find("td:nth-child(1)").text()});
+    });
+
+    var dados = {placar: placar};
+    $.post("http://localhost:3000/placar", dados, function () {
+        console.log("Salvou a bagaça!");        
+    });
+}
+
+function atualizaPlacar() {
+    $.get("http://localhost:3000/placar");
 }
