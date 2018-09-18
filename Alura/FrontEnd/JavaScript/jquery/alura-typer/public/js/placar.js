@@ -32,11 +32,13 @@ function criaTrPlacar(usuario, palavras) {
 }
 
 function removeTrPlacar() {
-    event.preventDefault();    
+    event.preventDefault();
+
+    var trPlacar = $(this).parent().parent();
+    trPlacar.fadeToggle(1000);
     
-    $(this).parent().parent().fadeToggle(1000);
     setTimeout(function () {
-        $(this).parent().parent().remove();        
+        trPlacar.remove();
     }, 1000);
 }
 
@@ -44,20 +46,24 @@ function mostraPlacar() {
     $(".placar").stop().slideToggle(800);
 }
 
-function sintonizaPlacar() {
+function sincronizaPlacar() {
     var placar = [];
     
     $("tbody>tr").each(function () {
         placar.push({usuario: $(this).find("td:nth-child(1)").text(),
-                     pontos: $(this).find("td:nth-child(1)").text()});
+                     pontos: $(this).find("td:nth-child(2)").text()});
     });
 
     var dados = {placar: placar};
     $.post("http://localhost:3000/placar", dados, function () {
-        console.log("Salvou a bagaça!");        
+        console.log("Dados sincronizados!");        
     });
 }
 
 function atualizaPlacar() {
-    $.get("http://localhost:3000/placar");
+    $.get("http://localhost:3000/placar", function (data) {
+        $(data).each(function () {
+            inserePlacar(this.usuario, this.pontos);
+        });
+    });
 }

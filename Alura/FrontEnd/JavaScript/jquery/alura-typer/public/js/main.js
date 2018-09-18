@@ -2,6 +2,7 @@ var tempoDigitacaoInicial = $("#tempo-digitacao").text();
 
 $(function () {    
     atualizaTamanhoFrase();
+    atualizaPlacar();
     atribuiEventos();
 });
 
@@ -70,7 +71,7 @@ function atribuiEventos() {
     $("#botao-reiniciar").click(reiniciaJogo);
     $(".botao-remover").click(removeTrPlacar);
     $("#botao-placar").click(mostraPlacar);
-    $("#botao-sync").click(sintonizaPlacar);
+    $("#botao-sync").click(sincronizaPlacar);
     $("#botao-frase").click(fraseAleatoria);
     $("#botao-frase-id").click(buscaFrase);
 }
