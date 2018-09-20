@@ -4,6 +4,15 @@ $(function () {
     atualizaTamanhoFrase();
     atualizaPlacar();
     atribuiEventos();
+
+    $('#usuarios').selectize({
+        create: true,
+        sortField: 'text'
+    });
+
+    $(".tooltip").tooltipster({
+        trigger: "custom"
+    });
 });
 
 function finalizaJogo() {
@@ -11,7 +20,7 @@ function finalizaJogo() {
     $(".campo-digitacao").toggleClass("campo-desabilitado");
     $("#botao-reiniciar").attr("disabled", false);
     
-    inserePlacar("Jesus", $("#contador-palavras").text());
+    inserePlacar($("#usuarios").val(), $("#contador-palavras").text());
 }
 
 function disparaCronometro() {

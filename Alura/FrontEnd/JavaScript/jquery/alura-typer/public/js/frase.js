@@ -2,15 +2,15 @@ function fraseAleatoria() {
     $("#spinner").toggle();
     
     $.get("http://localhost:3000/frases", alteraFraseAleatoria)
-     .fail(function () {
-         $("#erro").toggle();
-         setTimeout(function () {
-             $("#erro").toggle();
-         }, 2000);
-     })
-     .always(function () {
-         $("#spinner").toggle();
-     });
+        .fail(function () {
+            $("#erro").toggle();
+            setTimeout(function () {
+                $("#erro").toggle();
+            }, 2000);
+        })
+        .always(function () {
+            $("#spinner").toggle();
+        });
 }
 
 function alteraFraseAleatoria(data) {
@@ -25,15 +25,15 @@ function buscaFrase() {
     
     var dados = {id: $("#frase-id").val()};
     $.get("http://localhost:3000/frases", dados, alteraFrase)
-    .fail(function () {
-        $("#erro").toggle();
-        setTimeout(function () {
+        .fail(function () {
             $("#erro").toggle();
-        }, 2000);
-    })
-    .always(function () {
-        $("#spinner").toggle();
-    });
+            setTimeout(function () {
+                $("#erro").toggle();
+            }, 2000);
+        })
+        .always(function () {
+            $("#spinner").toggle();
+        });
 }
 
 function alteraFrase(data) {
