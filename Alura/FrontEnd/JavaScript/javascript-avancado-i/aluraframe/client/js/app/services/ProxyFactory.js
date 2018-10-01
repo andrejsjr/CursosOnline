@@ -1,6 +1,7 @@
 class ProxyFactory {
 
     static create(objeto, props, acao) {
+        
         return new Proxy(objeto, {
             get(target, prop, receiver) {
                 if (props.includes(prop) && ProxyFactory._ehFuncao(target[prop])) {
@@ -14,9 +15,11 @@ class ProxyFactory {
             },
 
             set(target, prop, value, receiver) {
-                if (props.includes(prop))
+                if (props.includes(prop)) {
+                    target[prop] = value;
                     acao(target);
-
+                }
+                
                 return Reflect.set(target, prop, value, receiver);
             }
         });

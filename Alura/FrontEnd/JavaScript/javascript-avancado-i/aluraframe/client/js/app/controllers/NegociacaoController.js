@@ -24,36 +24,34 @@ class NegociacaoController {
     }
     
     importaNegociacoes() {
-        let xhr = new XMLHttpRequest();
+        let service = new NegociacaoService();
+
+        service.obterNegociacoesDaSemana()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                this._mensagem.texto = 'Negociações da semana obtidas com sucesso';
+            })
+            .catch(erro => this._mensagem.texto = erro);
         
-        xhr.open('GET', 'nogociacoes/semana');
-
-        xhr.onreadystatechange = () => {
-            /*
-                0: requisição ainda não iniciada
-                1: conexão com o servidor estabelecida
-                2: requisição recebida
-                3: processando requisicao
-                4: requisição concluída e a resposta está pronta
-            */
-
-            if (xhr.readyState == 4) {
-                if (xhr.status = 200) {
-
-                }
-            }
-        };
-
-        xhr.send();
+            service.obterNegociacoesDaSemanaAnterior()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                this._mensagem.texto = 'Negociações da semana anterior obtidas com sucesso';
+            })
+            .catch(erro => this._mensagem.texto = erro);
+        
+            service.obterNegociacoesDaSemanaRetrasada()
+            .then(negociacoes => {
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                this._mensagem.texto = 'Negociações da semana retrasada obtidas com sucesso';
+            })
+            .catch(erro => this._mensagem.texto = erro);
     }
     
     esvazia() {
-        this._listaNegociacoes.esvazia();
-        
+        this._listaNegociacoes.esvazia();        
         this._mensagem.texto = 'Negociações apagadas com sucesso';
-        this._mensagemView.update(this._mensagem);
     }
-
 
     _criaNegociacao() {
         return new Negociacao(
