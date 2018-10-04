@@ -21,7 +21,7 @@
                 connection.deleteObjectStore('negociacoes');
             }
             
-            e.target.result.createObjectStore('negociacoes', {autoIncrement: true});
+            connection.createObjectStore('negociacoes', {autoIncrement: true});
         };
 
         openRequest.onsuccess = e => {
@@ -69,6 +69,10 @@
                 } else {
                     console.log(negociacoes);
                 }
+            };
+
+            cursor.onerror = e => {
+                console.log(e.target.error.name);
             };
         }
     </script>
