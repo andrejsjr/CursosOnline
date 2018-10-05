@@ -16,14 +16,33 @@ class NegociacaoController {
 
         this._mensagem = new Bind(new Mensagem(), 
             new MensagemView($('#mensagem-view')), 'texto');
+
+        connectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.listaTodos())
+            .then(negociacoes => 
+                negociacoes.forEach(negociacao =>
+                    this._listaNegociacoes.adiciona(negociacao)))
+            .catch(erro => {
+                console.log(erro);
+                this._mensagem.texto = erro;
+            });
     }
     
     adiciona(event) {
         event.preventDefault();
 
-        this._listaNegociacoes.adiciona(this._criaNegociacao());        
-        this._mensagem.texto = 'Negociação incluida com sucesso';        
-        this._limpaFormulario();
+        connectionFactory.getConnection()
+            .then(connection => {
+                var negociacao = this._criaNegociacao();
+                new NegociacaoDao(connection).adiciona(negociacao)
+                    .then(() => {
+                        this._listaNegociacoes.adiciona(negociacao);        
+                        this._mensagem.texto = 'Negociação incluida com sucesso';        
+                        this._limpaFormulario();
+                    })
+            })
+            .catch(erro => this._mensagem.texto = erro);
     }
     
     importaNegociacoes() {
@@ -45,16 +64,22 @@ class NegociacaoController {
         .catch(erro => this._mensagem.texto = erro);
     }
     
-    esvazia() {
-        this._listaNegociacoes.esvazia();        
-        this._mensagem.texto = 'Negociações apagadas com sucesso';
+    esvazia() {        
+        connectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.apagaTodos())
+            .then(mensagem => {
+                this._listaNegociacoes.esvazia();        
+                this._mensagem.texto = mensagem;
+            })
+            .catch(erro => this._mensagem.texto = erro);
     }
 
     _criaNegociacao() {
         return new Negociacao(
             DateHelper.textoParaData(this._inputData.value), 
-            this._inputQuantidade.value, 
-            this._inputValor.value
+            parseInt(this._inputQuantidade.value), 
+            parseFloat(this._inputValor.value)
         );
     }
 

@@ -59,6 +59,8 @@
             var cursor = store.openCursor();
 
             cursor.onsuccess = e => {
+                console.log('on success...');                
+                
                 var atual = e.target.result;
 
                 if (atual) {
