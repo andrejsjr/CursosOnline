@@ -42,4 +42,14 @@ class NegociacaoService {
                 });
         });
     }
+
+    cadastra(negociacao) {
+        return connectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.adiciona(negociacao))
+            .then(() => 'Negociação incluida com sucesso')
+            .catch(erro => {
+                throw new Error('Não foi possível incluir a negociação');
+            });
+    }
 }

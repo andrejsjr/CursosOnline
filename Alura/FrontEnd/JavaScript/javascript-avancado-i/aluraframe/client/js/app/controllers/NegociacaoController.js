@@ -17,6 +17,10 @@ class NegociacaoController {
         this._mensagem = new Bind(new Mensagem(), 
             new MensagemView($('#mensagem-view')), 'texto');
 
+        this._init();
+    }
+    
+    _init() {
         connectionFactory.getConnection()
             .then(connection => new NegociacaoDao(connection))
             .then(dao => dao.listaTodos())
@@ -27,20 +31,20 @@ class NegociacaoController {
                 console.log(erro);
                 this._mensagem.texto = erro;
             });
+
+        setInterval(() => this.importaNegociacoes(), 3000);
     }
     
     adiciona(event) {
         event.preventDefault();
 
-        connectionFactory.getConnection()
-            .then(connection => {
-                var negociacao = this._criaNegociacao();
-                new NegociacaoDao(connection).adiciona(negociacao)
-                    .then(() => {
-                        this._listaNegociacoes.adiciona(negociacao);        
-                        this._mensagem.texto = 'Negociação incluida com sucesso';        
-                        this._limpaFormulario();
-                    })
+        var negociacao = this._criaNegociacao();
+
+        new NegociacaoService().cadastra(negociacao)
+            .then(mensagem => {
+                this._listaNegociacoes.adiciona(negociacao);        
+                this._mensagem.texto = mensagem;        
+                this._limpaFormulario();
             })
             .catch(erro => this._mensagem.texto = erro);
     }
@@ -53,12 +57,16 @@ class NegociacaoController {
             service.obterNegociacoesDaSemanaAnterior(),
             service.obterNegociacoesDaSemanaRetrasada()    
         ])
-        .then(todasAsNegociacoes => {
+        .then(todasAsNegociacoes => 
             todasAsNegociacoes
                 .reduce((todasAsNegociacoesAchatadas, negociacoes) => 
-                    todasAsNegociacoesAchatadas.concat(negociacoes), [])
-                .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-
+                    todasAsNegociacoesAchatadas.concat(negociacoes), []))
+        .then(negociacoes => 
+            negociacoes.filter(negociacao => 
+                !this._listaNegociacoes.negociacoes.some(negociacaoExistente => 
+                    JSON.stringify(negociacaoExistente) == JSON.stringify(negociacao))))
+        .then(negociacoes => {
+            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
             this._mensagem.texto = 'Negociações obtidas com sucesso';
         })
         .catch(erro => this._mensagem.texto = erro);
