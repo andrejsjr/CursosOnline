@@ -47,9 +47,48 @@ class NegociacaoService {
         return connectionFactory.getConnection()
             .then(connection => new NegociacaoDao(connection))
             .then(dao => dao.adiciona(negociacao))
-            .then(() => 'Negociação incluida com sucesso')
-            .catch(erro => {
-                throw new Error('Não foi possível incluir a negociação');
+            .then(() => 'Negociação cadastrada com sucesso')
+            .catch(() => {
+                throw new Error('Não foi possível cadastrar a negociação');
             });
+    }
+
+    lista() {
+        return connectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.listaTodos())
+            .catch(() => {
+                throw new Error('Não foi possível listar as negociações');
+            });
+    }
+
+    apaga() {
+        return connectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.apagaTodos())
+            .then(() => 'Negociações apagadas com sucesso')
+            .catch(() => {
+                throw new Error('Não foi possível apagar as negociações');
+            });
+    }
+
+    importa(listaAtual) {
+        return Promise.all([
+            this.obterNegociacoesDaSemana(),
+            this.obterNegociacoesDaSemanaAnterior(),
+            this.obterNegociacoesDaSemanaRetrasada()    
+        ])
+        .then(todasAsNegociacoes => 
+            todasAsNegociacoes
+                .reduce((todasAsNegociacoesAchatadas, negociacoes) => 
+                    todasAsNegociacoesAchatadas.concat(negociacoes), []))
+        .then(negociacoes => 
+            negociacoes.filter(negociacao => 
+                !listaAtual.some(negociacaoExistente => 
+                    negociacao.isEquals(negociacaoExistente))))
+        .catch(erro => {
+            console.log(erro);
+            throw new Error(erro);
+        });
     }
 }
