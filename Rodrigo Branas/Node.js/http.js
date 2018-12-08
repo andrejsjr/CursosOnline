@@ -14,16 +14,33 @@ var contatos = [
     {id: 3, nome: "Mariana", telefone: "9999-9999", data: new Date(), operadora: operadoras[3]}
 ]
 
-app.get('/operadoras', function (req, res) {
+app.interceptor((req, res, next) => {
+    res.setHeader('Acces-Control-Allow-Origin', '*');
+    res.setHeader('Acces-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
+app.interceptor((req, res, next) => {
+    res.setHeader('Content-Type', 'application/json;charset=UTF-8');
+    next();
+});
+
+app.get('/operadoras', (req, res) => {
     res.write(JSON.stringify(operadoras));
     res.end();
 });
 
-app.get('/contatos', function (req, res) {
+app.get('/contatos', (req, res) => {
     res.write(JSON.stringify(contatos));
     res.end();
 });
 
-app.post('/contatos', function (req, res) {
+app.post('/contatos', (req, res) => {
+    var contato = req.body;
+    contatos.push(JSON.parse(contato));
+    res.end();
+});
+
+app.options('/contatos', (req, res) => {
     res.end();
 });
