@@ -1,3 +1,5 @@
+const { check, validationResult } = require('express-validator/check');
+
 require('marko/node-require').install();
 require('marko/express');
 
@@ -22,5 +24,17 @@ app.use(methodOverride(function (req, res) {
 
 const rotas = require('../app/rotas/rotas');
 rotas(app);
+
+app.use((req, resp, next) => {
+  return resp.status(404).marko(
+    require('../app/views/base/erros/404.marko')
+  );
+});
+
+app.use((erro, req, resp, next) => {
+  return resp.status(500).marko(
+    require('../app/views/base/erros/500.marko')
+  );
+});
 
 module.exports = app;

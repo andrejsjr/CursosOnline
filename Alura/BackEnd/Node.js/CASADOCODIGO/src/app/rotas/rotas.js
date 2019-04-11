@@ -39,13 +39,28 @@ module.exports = (app) => {
                 .catch(erro => console.log(erro));
     });
 
-    app.post('/livros', function(req, resp) {
-        console.log(req.body);
-        const livroDao = new LivroDao(db);
-        
-        livroDao.adiciona(req.body)
-                .then(resp.redirect('/livros'))
-                .catch(erro => console.log(erro));
+    app.post('/livros', [
+            check('titulo').isLength({ min: 5 }).withMessages('O título precisa ter no mínimo 5 caracteres.'),
+            check('preco').isCurrency().withMessages('O preço precisa ter um valor monetário válido.')
+        ], 
+        function(req, resp) {
+            console.log(req.body);
+            
+            const erros = validationResult(req);
+            if (!erros.isEmpty()) {
+                return resp.marko(
+                    require('../views/livros/form/form.marko'),
+                    {
+                        livro: req.body,
+                        errosValidacao: erros.array()
+                    }
+                );
+            }
+                
+            const livroDao = new LivroDao(db);
+            livroDao.adiciona(req.body)
+                    .then(resp.redirect('/livros'))
+                    .catch(erro => console.log(erro));
     });
 
     app.put('/livros', function(req, resp) {
