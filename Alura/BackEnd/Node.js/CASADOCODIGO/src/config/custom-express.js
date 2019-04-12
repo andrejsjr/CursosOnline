@@ -1,5 +1,3 @@
-const { check, validationResult } = require('express-validator/check');
-
 require('marko/node-require').install();
 require('marko/express');
 
