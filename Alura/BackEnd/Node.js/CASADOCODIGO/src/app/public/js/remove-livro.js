@@ -6,6 +6,7 @@ tabelaLivros.addEventListener('click', (evento) => {
         let livroId = elementoClicado.dataset.ref;
         fetch(`http://localhost:3000/livros/${livroId}`, { method: 'DELETE' })
             .then(resposta => {
+
                 let tr = elementoClicado.closest(`#livro_${livroId}`);
                 tr.remove();
             })
