@@ -25,11 +25,23 @@ const database = {
     },
 
     execute(statement) {
-        if (statement.startsWith('create table'))
+        if (statement.startsWith('create table')) {
             return this.createTable(statement);
+        } 
+        
+        throw new DatabaseError(statement, 'Syntax error');
     }
 };
 
-database.execute('create table author (id number, name string, age number, city string, state string, country string)');
+const DatabaseError = function(statement, message) {
+    this.statement = statement;
+    this.message = message;
+};
 
-console.log(JSON.stringify(database, undefined, '  '));
+try {
+    database.execute('create table author (id number, name string, age number, city string, state string, country string)');
+    database.execute('select id, name from author');
+    console.log(JSON.stringify(database, undefined, '  '));    
+} catch (error) {
+    console.log(`${error.message}: ${error.statement}`);
+}
