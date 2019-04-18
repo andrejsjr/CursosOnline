@@ -1,3 +1,7 @@
-const delicias = ['seios', 'bunda', 'buceta'];
+const putas = [
+    { nome: 'Camila', idade: 20 }, 
+    { nome: 'Bruna', idade: 22 },
+    { nome: 'Jéssica', idade: 19 }
+];
 
-delicias.forEach(elemento => console.log(elemento));
+console.log(putas.indexOf({ nome: 'Bruna', idade: 22 }));

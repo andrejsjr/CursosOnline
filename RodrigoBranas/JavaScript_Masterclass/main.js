@@ -11,7 +11,7 @@ const database = {
     createTable(statement) {
         const regexp = /create table (?<tabela>[a-z]+) \((?<colunas>.+)\)/;
         const parsedStatement = statement.match(regexp);
-        let [,tableName, columns] = parsedStatement;
+        let [, tableName, columns] = parsedStatement;
         
         this.tables[tableName] = {
             columns: {},
@@ -30,7 +30,7 @@ const database = {
     insert(statement) {
         const regexp = /insert into ([a-z]+) \((.+)\) values \((.+)\)/;
         const parsedStatement = statement.match(regexp);
-        let [,tableName, columns, values] = parsedStatement;
+        let [, tableName, columns, values] = parsedStatement;
 
         columns = columns.split(', ');
         values = values.split(', ');
@@ -44,15 +44,39 @@ const database = {
     },
 
     select(statement) {
-        const regexp = /select (.+) from ([a-z]+) where (.+) = (.+)/;
+        const regexp = /select (.+) from ([a-z]+)(?: where (.+))?/;
         const parsedStatement = statement.match(regexp);
-        let [,columns, tableName, columnWhere, valueWhere] = parsedStatement;        
-
-        const rows = this.tables[tableName].data.filter(row => row[columnWhere] === valueWhere);       
+        let [, columns, tableName, whereClause] = parsedStatement;        
+        columns = columns.split(', ');
+        
+        let rows = this.tables[tableName].data;
+        
+        if (whereClause) {
+            whereClause = whereClause.split(' = ');
+            const [columnWhere, valueWhere] = whereClause;
+            rows = this.tables[tableName].data.filter(row => row[columnWhere] === valueWhere);
+        } 
         
         return rows.map(row => {
-            return { name: row.name, age: row.age };
+            let selectedRow = {};
+            columns.forEach(column => selectedRow[column] = row[column]);
+            return selectedRow;
         });
+    },
+
+    delete(statement) {
+        const regexp = /delete from ([a-z]+)(?: where (.+))?/;
+        const parsedStatement = statement.match(regexp);        
+        let [, tableName, whereClause] = parsedStatement;
+
+        if (whereClause) {
+            whereClause = whereClause.split(' = ');
+            const [columnWhere, valueWhere] = whereClause;
+            this.tables[tableName].data = 
+                this.tables[tableName].data.filter(row => row[columnWhere] !== valueWhere);
+        } else {
+            this.tables[tableName].data =[];
+        }
     },
 
     execute(statement) {
@@ -68,6 +92,10 @@ const database = {
             return this.select(statement);
         } 
         
+        if (statement.startsWith('delete')) {
+            return this.delete(statement);
+        } 
+        
         throw new DatabaseError(statement, 'Syntax error');
     }
 };
@@ -77,10 +105,12 @@ try {
     database.execute("insert into author (id, name, age) values (1, Douglas Crockford, 62)");
     database.execute("insert into author (id, name, age) values (2, Linus Torvalds, 47)");
     database.execute("insert into author (id, name, age) values (3, Martin Fowler, 54)");
-    console.log(JSON.stringify(database.execute('select name, age from author where id = 1')));
-    console.log(JSON.stringify(database.execute('select name, age from author where id = 2')));
-    console.log(JSON.stringify(database.execute('select name, age from author where id = 3')));
-    //console.log(JSON.stringify(database, undefined, '  '));    
+    database.execute("delete from author where id = 2");
+    // database.execute("delete from author");
+    // console.log(JSON.stringify(database.execute('select name, age from author where id = 1')));
+    console.log(JSON.stringify(database.execute('select id, name, age from author'), undefined, ' '));
+    // console.log(JSON.stringify(database.execute('select name, age from author where id = 3')));
+    // console.log(JSON.stringify(database, undefined, '  '));    
 } catch (error) {
     console.log(`${error.message}: ${error.statement}`);
 }
