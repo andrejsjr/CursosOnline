@@ -1,7 +1,6 @@
-const putas = [
-    { nome: 'Camila', idade: 20 }, 
-    { nome: 'Bruna', idade: 22 },
-    { nome: 'Jéssica', idade: 19 }
-];
-
-console.log(putas.indexOf({ nome: 'Bruna', idade: 22 }));
+let putas = ["Paula", "Fernanda", "Juliana", "Paula", "Juliana"];
+console.log(putas);
+const setPutas = new Set(putas);
+console.log(setPutas);
+putas = Array.from(setPutas);
+console.log(putas);
