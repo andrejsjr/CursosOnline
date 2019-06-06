@@ -4,8 +4,7 @@ import DatabaseError from './database-error'
 export class Database {
     
     constructor() {
-        this.tables = {};
-        this.parser =  new Parser();
+        this.tables = {};        
     }
     
     createTable(parsedStatement) {
@@ -76,7 +75,7 @@ export class Database {
         return new Promise((resolve, reject) => {
             
             setTimeout(() => {
-                const cmdObj = this.parser.parse(statement)        
+                const cmdObj = Parser.parse(statement)        
                 
                 if (cmdObj) {
                     resolve(this[cmdObj.command](cmdObj.parsedStatement));

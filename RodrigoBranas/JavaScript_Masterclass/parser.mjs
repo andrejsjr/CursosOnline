@@ -1,16 +1,14 @@
-export default class Parser {
+class Parser {
+
+    static commands = new Map([
+        ['createTable', /create table ([a-z]+) \((.+)\)/],
+        ['insert', /insert into ([a-z]+) \((.+)\) values \((.+)\)/],
+        ['select', /select (.+) from ([a-z]+)(?: where (.+))?/],
+        ['delete', /delete from ([a-z]+)(?: where (.+))?/]
+    ]);    
     
-    constructor() {
-        this.commands = new Map();
-
-        this.commands.set('createTable', /create table ([a-z]+) \((.+)\)/);
-        this.commands.set('insert', /insert into ([a-z]+) \((.+)\) values \((.+)\)/);
-        this.commands.set('select', /select (.+) from ([a-z]+)(?: where (.+))?/);
-        this.commands.set('delete', /delete from ([a-z]+)(?: where (.+))?/);
-    }
-
-    parse(statement) {
-        for (let [command, regexp] of this.commands) {
+    static parse(statement) {
+        for (let [command, regexp] of commands) {
             const parsedStatement = statement.match(regexp);            
             
             if (parsedStatement) {
