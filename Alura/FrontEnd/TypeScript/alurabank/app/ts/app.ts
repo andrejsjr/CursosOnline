@@ -1,4 +1,4 @@
-const negociacaoController = new NegociacaoController();
+import { NegociacaoController } from './controllers/NegociacaoController.js';
 
-document.querySelector('.form')
-    .addEventListener('submit', negociacaoController.adiciona.bind(negociacaoController));
+const negociacaoController = new NegociacaoController();
+$('.form').submit(negociacaoController.adiciona.bind(negociacaoController));
