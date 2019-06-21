@@ -8,4 +8,11 @@ export class Negociacoes {
     paraArray() {
         return [...this._negociacoes];
     }
+    paraTexto() {
+        console.log('impressao');
+        console.log(JSON.stringify(this._negociacoes));
+    }
+    ehIgual(negociacoes) {
+        return JSON.stringify(this._negociacoes) == JSON.stringify(negociacoes.paraArray());
+    }
 }
