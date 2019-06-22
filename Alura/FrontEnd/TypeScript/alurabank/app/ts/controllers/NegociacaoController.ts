@@ -51,15 +51,17 @@ export class NegociacaoController {
     }
 
     @throttle()
-    importaDados() {
-        this._negociacaoService.obterNegociacoes(res => {
-            if (res.ok) {
-                return res;
-            } else {
-                throw new Error(res.statusText);
-            }
-        })
-        .then((negsParaImportar: Negociacao[]) => {
+    async importaDados() {
+        try {
+            const negsParaImportar = await this._negociacaoService.obterNegociacoes(
+                res => {
+                    if (res.ok)
+                        return res;
+                    else
+                        throw new Error(res.statusText);            
+                }
+            );
+
             const negsJaImportadas = this._negociacoes.paraArray();
 
             negsParaImportar.filter(negociacao => 
@@ -68,7 +70,10 @@ export class NegociacaoController {
             .forEach(negociacao => this._negociacoes.adiciona(negociacao));
 
             this._negociacoesView.update(this._negociacoes);
-        });
+        
+        } catch(erro) {
+            this._mensagemView.update(erro.message);
+        }
     }
 }
 

@@ -2,7 +2,7 @@ import { Negociacao, NegociacaoParcial} from '../models/index.js'
 
 export class NegociacaoService {
 
-    obterNegociacoes(handler: HandlerFunction): Promise<void | Negociacao[]> {
+    obterNegociacoes(handler: HandlerFunction): Promise<Negociacao[]> {
         return fetch('http://localhost:8080/dados')
             .then(res => handler(res))
             .then(res => res.json())
@@ -10,7 +10,10 @@ export class NegociacaoService {
                 dados
                     .map(dado => new Negociacao(new Date(), dado.vezes, dado.montante))
             )
-            .catch(erro => console.log(erro));
+            .catch(erro => {
+                console.log(erro)
+                throw new Error('Não foi possível importar as negociações');
+            });
     }
 }
 
