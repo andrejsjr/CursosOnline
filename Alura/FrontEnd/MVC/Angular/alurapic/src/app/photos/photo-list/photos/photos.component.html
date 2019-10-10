@@ -1,0 +1,14 @@
+<!-- Classes do Bootstrap -->
+<ol class="list-unstyled">
+    <!-- Como o grid do Bootstrap possui até 12 colunas
+    cada linha possuirá 3 fotos
+    Cada foto ocupará 4 colunas -->
+    <li *ngFor="let cols of rows" class="row">
+        <div *ngFor="let photo of cols" class="col-4">
+          <ap-photo    
+              [url]="photo.url"
+              [description]="photo.description">
+          </ap-photo>
+        </div>
+    </li>
+</ol>

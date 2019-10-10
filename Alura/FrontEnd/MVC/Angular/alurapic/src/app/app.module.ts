@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 
 import { PhotosModule } from './photos/photos.module';
 import { AppRoutingModule } from './app.routing.module';
+import { ErrorsModule } from './errors/errors.module';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,9 @@ import { AppRoutingModule } from './app.routing.module';
     // As diretivas na verdade estão em CommonModule
     // que é importado internamente em BrowserModule
     BrowserModule,
-    // 
+    
     PhotosModule,
+    
     // Ao importar AppRoutingModule
     // já temos BrowserModule com as rotas configuradas
     // No entanto é necessário que AppRoutingModule
@@ -27,7 +29,9 @@ import { AppRoutingModule } from './app.routing.module';
     // ele se perde caso esteja em execução
     // Portanto, é necessário parar a execução
     // e iniciar novamente
-    AppRoutingModule
+    AppRoutingModule,
+
+    ErrorsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
