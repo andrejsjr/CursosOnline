@@ -5,7 +5,7 @@
             type="search"
             placeholder="search..."
             autofocus
-            (keyup)="filter = $event.target.value" 
+            (keyup)="debounce.next($event.target.value)"
         >
     </form>
 </div>
@@ -18,8 +18,8 @@
     para o event do JavaScript
     
     No exemplo acima, sempre que o usuário digitar algo
-    o Angular colocará o que foi digitado na propriedade
-    filter do componente
+    o Angular emitirá esse valor para o Subject debounce
+    declarado no componente
 -->
 
 <ap-photos [photos]="photos | filterByDescription: filter"></ap-photos>
