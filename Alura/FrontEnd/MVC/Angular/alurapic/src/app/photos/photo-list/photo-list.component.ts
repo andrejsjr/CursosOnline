@@ -7,7 +7,7 @@ import { Photo } from '../photo/photo';
 import { PhotoService } from '../photo/photo.service';
 
 @Component({
-  selector: 'app-photo-list',
+  selector: 'ap-photo-list',
   templateUrl: './photo-list.component.html',
   styleUrls: ['./photo-list.component.css']
 })
@@ -28,7 +28,10 @@ export class PhotoListComponent implements OnInit, OnDestroy {
   userName: string = '';
   
   constructor(
+    // Serviço de rotas do Angular
+    // injetado automaticamente
     private activatedRoute: ActivatedRoute,
+    // 
     private photoService: PhotoService
   ) { }
   
