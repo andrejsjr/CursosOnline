@@ -1,0 +1,31 @@
+<!-- 
+    () é um Event Biding
+    Quando acontecer o evento especificado
+    o Angular executará a expressão em "".
+    
+    $event é o tratamento interno do Angular
+    para o event do JavaScript
+    
+    No exemplo, sempre que o usuário digitar algo
+    o Angular emitirá esse valor para o Subject debounce
+    declarado no componente
+-->
+<div class="text-center mt-3 mb-3">
+    <form>
+        <!--  fa classe do Font Awesome -->
+        <!-- mr-1 classe do Bootstrap - margen right -->
+        <!--
+            aria-hidden="true" para não exibir informações
+            em leitores de acessibilidade
+            -->
+        <i aria-hidden="true" class="fa fa-search mr-1"></i>
+        <!--  -->
+        <input
+            class="rounded"
+            type="search"
+            placeholder="search..."
+            autofocus
+            (keyup)="debounce.next($event.target.value)"
+        >
+    </form>
+</div>
