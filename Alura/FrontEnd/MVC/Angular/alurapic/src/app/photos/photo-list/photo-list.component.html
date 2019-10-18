@@ -1,23 +1,32 @@
-<ap-photos [photos]="photos | filterByDescription: filter"></ap-photos>
+<!-- 
+    Como estamos dizendo na definição do evento onTyping,
+    que ele emite uma string quando for disparado $event conterá
+    o valor dessa string
+-->
+<ap-search
+    (onTyping)="filter = $event" [value]="filter">
+</ap-search>
+
 <!--
     Conceito de PIPE do Angular
     O PIPE é um "tubo" que alguma coisa passa e sai transformada em outra
     O Angular tem os seus próprios PIPES
     mas também podemos criar os nossos próprios
 
-    No exemplo acima é como se fosse:
+    No exemplo, é como se fosse:
     
     filterByDescription(photos, filter)
 
     filterByDescription é um PIPE criado por nós
 -->
+<ap-photos [photos]="photos | filterByDescription: filter"></ap-photos>
 
 <!-- 
     () é um Event Biding
     Quando acontecer o evento especificado
     o Angular executará a expressão em "".
     
-    No evento click abaixo, o método load será executado
+    No evento click, o método load será executado
 -->
 <ap-load-button
     (click)="load()"

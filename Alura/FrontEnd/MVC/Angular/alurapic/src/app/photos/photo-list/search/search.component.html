@@ -17,15 +17,15 @@
         <!--
             aria-hidden="true" para não exibir informações
             em leitores de acessibilidade
-            -->
+        -->
         <i aria-hidden="true" class="fa fa-search mr-1"></i>
-        <!--  -->
         <input
             class="rounded"
             type="search"
             placeholder="search..."
             autofocus
             (keyup)="debounce.next($event.target.value)"
+            [value]="value"
         >
     </form>
 </div>
