@@ -1,0 +1,74 @@
+<h4 class="text-center">Login</h4>
+
+<!-- 
+    Usando a direetiva formGroup com data biding 
+    com a propriedade loginForm para dizer que
+    ele loginForm é quem vai controlar as validações
+    do formulário
+ -->
+<form [formGroup]="loginForm" class="form mt-4">
+
+    <!--
+        A string atribuida a formControlName
+        precisa bater com:
+
+        this.loginForm = this.formBuilder.group({
+            userName: ['', Validators.required], /* form control que será associado ao input de user name */
+            password: ['', Validators.required]  /* form control que será associado ao input de password */
+        });
+    -->
+    
+    <div class="form-group">
+        <input 
+            formControlName="userName"
+            class="form-control" 
+            placeholder="user name" 
+            autofocus>
+        <!-- 
+            Objeto errors existirá apenas se houver erro
+            e errors.required existirá se houver erro
+            no validator require
+
+            O "?" faz com que o Angular avalie .require
+            apenas se errors existir
+        -->
+        <ap-vmessage
+            *ngIf="loginForm.get('userName').errors?.required"
+            text="User name is required!">
+        </ap-vmessage>
+    </div>
+
+    <div class="form-group">
+        <input
+            formControlName="password"
+            type="password" 
+            class="form-control" 
+            placeholder="password">        
+        <!-- 
+            Objeto errors existirá apenas se houver erro
+            e errors.required existirá se houver erro
+            no validator require
+
+            O "?" faz com que o Angular avalie .require
+            apenas se errors existir
+        -->
+        <ap-vmessage
+            *ngIf="loginForm.get('password').errors?.required"
+            text="Password is required!">
+        </ap-vmessage>
+    </div>
+
+    <!-- 
+        .invalid avalia se todos os inputs/propriedades
+        passaram nas validações
+     -->
+    <button 
+        [disabled] = "loginForm.invalid"
+        type="submit" 
+        class="btn btn-primary btn-block">
+        login
+    </button>
+
+</form>
+
+<p>Not a user?<a>Register now</a></p>

@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostListener, Renderer, Input } from '@angular/c
 
 /* 
     Diretivas funcionam como componentes
-    mas não estão amarrada a um template
+    mas não estão amarradas a um template
 
     Na verdade, todos os componentes são diretivas
     porém estão amarrados a um template
@@ -39,18 +39,16 @@ export class DarkenOnHoverDirective {
 
     /* 
         @HostListener diz pro Angular em qual evento JavaScript
-        do elemento hospedeiro da diretiva o método deve atuar
+        do elemento hospedeiro da diretiva o método escrito deve atuar
     */
    
     @HostListener('mouseover')
     darkenOn() {
-        console.log('fudeu');
-        // this.render.setElementStyle(this.el.nativeElement, 'filter', `brightness(${this.brightness})`);
+        this.render.setElementStyle(this.el.nativeElement, 'filter', `brightness(${this.brightness})`);
     }
 
     @HostListener('mouseleave')
     darkenOff() {
-        console.log('fudeu');
-        // this.render.setElementStyle(this.el.nativeElement, 'filter', 'brightness(100%)');
+        this.render.setElementStyle(this.el.nativeElement, 'filter', 'brightness(100%)');
     }
 }
