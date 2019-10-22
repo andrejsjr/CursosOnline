@@ -21,8 +21,10 @@ export class DarkenOnHoverDirective {
             o angular injeta como dependência o elemento do DOM
             onde a diretiva foi utilizada
 
-            Esse elemento não é o elemento nativo do DOM
-            possui uma casca do Angular
+            Esse elemento não é o elemento nativo,
+            é um wrapper do Angular para elementos do DOM,
+            para que se possa trabalhar com o elemento
+            de forma integrada ao framework
         */    
         private el: ElementRef,
         
@@ -32,7 +34,7 @@ export class DarkenOnHoverDirective {
             o que se deseja fazer
 
             Garante que o código não vai dar problema
-            caso haja uma renderização no backend
+            caso haja uma renderização em server side
         */
         private render: Renderer
     ) { }

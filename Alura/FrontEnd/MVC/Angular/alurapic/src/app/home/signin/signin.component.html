@@ -5,8 +5,12 @@
     com a propriedade loginForm para dizer que
     ele loginForm é quem vai controlar as validações
     do formulário
+
+    Event Binding com o evento submit para que
+    ao submeter o formulário, seja executado o
+    método login()
  -->
-<form [formGroup]="loginForm" class="form mt-4">
+<form [formGroup]="loginForm" class="form mt-4" (submit)="login()">
 
     <!--
         A string atribuida a formControlName
@@ -19,7 +23,15 @@
     -->
     
     <div class="form-group">
-        <input 
+        <!-- 
+            #userNameInput é uma variável de template
+            e representa uma referência ao elemento do DOM
+            
+            Variáveis de template também podem ser utilizadas
+            em componentes, guardando assim uma referência
+            para o mesmo 
+         -->
+        <input #userNameInput
             formControlName="userName"
             class="form-control" 
             placeholder="user name" 
