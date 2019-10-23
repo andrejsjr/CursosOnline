@@ -43,10 +43,10 @@ export class SearchComponent implements OnInit, OnDestroy {
             o subscribe dá acesso ao que foi digitado
         */
         this.debounce
-        .pipe(debounceTime(300))
-        // Emitindo o evento onTyping
-        // com o valor de filter (valor digitado)
-        .subscribe(filter => this.onTyping.emit(filter));
+            .pipe(debounceTime(300))
+            // Emitindo o evento onTyping
+            // com o valor de filter (valor digitado)
+            .subscribe(filter => this.onTyping.emit(filter));
     }
     
     // Chamado toda vez que componente é destruído
