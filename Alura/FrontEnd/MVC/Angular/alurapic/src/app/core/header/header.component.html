@@ -2,9 +2,40 @@
 <header class="fixed-top">
     <nav class="navbar navbar-light bg-white">
         <a class="navbar-brand">ALURAPIC</a>
-        <div>
-            <i class="fa fa-user-circle"></i>
-            <a class="ml-2">{{ user?.name }}</a>
+
+        <!-- 
+            Como user$ é um observable, precisamos
+            utilizar o pipe async do Angular
+            Dessa forma, é como se o template
+            desse um subscribe() em user$ e guardasse
+            o valor que foi emitido.
+            Como eu quero acessar esse valor como user
+            e não como user$, faço "as user".
+
+            OBS: Também dá pra utilizar esse recurso
+            com Subject ou BehaviorSubject.
+         -->        
+        <div *ngIf="(user$ | async) as user; else login">
+            <i class="fa fa-user-circle mr-1"></i>
+            <a class="mr-1">{{ user.name }}</a>
+            <a (click)="logout()">(Logout)</a>
         </div>
+
+        <ng-template #login>
+            <span class="navbar-text">
+                <!-- 
+                    Não podemos fazer:
+                    <a href="/">Please, login!</a>
+                    Pois a aplicação seria toda recarregada pelo navegador.
+                    Por isso precisamos usar o routerLink do Angular.
+                    [routerLink]="['']" é similar a router.navigate(['']).
+                    Essa forma a página solicitada será exibida
+                    sem que o navegador recarregue.
+
+                    OBS: RouterModule precisa estar carregado.
+                 -->
+                <a [routerLink]="['']">Please, login!</a>
+            </span>
+        </ng-template>
     </nav>
 </header>
