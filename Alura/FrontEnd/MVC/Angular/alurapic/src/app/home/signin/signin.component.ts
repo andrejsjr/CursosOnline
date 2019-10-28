@@ -10,7 +10,11 @@ import { PlatformDetectorService } from 'src/app/core/plataform-detector/platafo
 })
 export class SignInComponent implements OnInit {
     
-    // Controlará o form do template
+    /* 
+        Controlará o form do template.
+        FormGroup é ideal para validações
+        baseadas em modelo.
+     */
     loginForm: FormGroup
 
     /* 
@@ -32,15 +36,18 @@ export class SignInComponent implements OnInit {
     @ViewChild('userNameInput')
     userNameInput: ElementRef<HTMLInputElement>
     
-    // Injetados pelo Angular
+    // Injetados pelo Angular.
 
     /* 
+        formBuilder é necessário para criação
+        do formulário.
+    
         router é disponiblizado pelo RouterModule
-        e serve para fazer navegação programática
+        e serve para fazer navegação programática.
 
         platformDetectorService é o serviço que
         criamos para detectar se a plataforma
-        do usuário é o browser
+        do usuário é o browser.
     */
     constructor(
         private formBuilder: FormBuilder,
