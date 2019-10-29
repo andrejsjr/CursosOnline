@@ -80,7 +80,10 @@
         class="btn btn-primary btn-block">
         login
     </button>
-
 </form>
 
-<p>Not a user?<a>Register now</a></p>
+<!-- 
+    [routerLink]="['signup']" é similar a:
+    route.navigate(['signup'])
+ -->
+<p>Not a user? <a [routerLink]="['signup']">Register now</a></p>

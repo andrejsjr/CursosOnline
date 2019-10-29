@@ -6,11 +6,14 @@ import { RouterModule } from '@angular/router';
 import { SignInComponent } from './signin/signin.component';
 import { SignUpComponent } from './signup/signup.component';
 import { VMessageModule } from '../shared/components/vmessage/vmessage.module';
+import { HomeComponent } from './home.component';
+import { HomeRoutingModule } from './home.routing.module';
 
 @NgModule({
     declarations: [
         SignInComponent,
-        SignUpComponent
+        SignUpComponent,
+        HomeComponent
     ],
     imports: [
         CommonModule,
@@ -25,14 +28,17 @@ import { VMessageModule } from '../shared/components/vmessage/vmessage.module';
             uma vez que AppModule, ao importar AppRoutingModule que exporta RouterModule,
             reexporta RouterModule para todos os demais módulos que importa.
         */
-        RouterModule
+        RouterModule,
+
+        HomeRoutingModule
     ]
     
     /* 
-        SignInComponent não precisa ser exportado
-        pois não será utilizado em nenhum template
-        de outro componente
-        Possui escopo de página
+        SignInComponent SignOutComponente
+        não precisam ser exportados
+        pois não serão utilizados em nenhum template
+        de outro componente.
+        Possuem escopo de página.
     */
 })
 export class HomeModule {

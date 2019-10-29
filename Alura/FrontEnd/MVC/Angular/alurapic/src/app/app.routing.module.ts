@@ -5,29 +5,31 @@ import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
-import { SignInComponent } from './home/signin/signin.component';
-import { AuthGuard } from './core/auth/auth.guard';
-import { SignUpComponent } from './home/signup/signup.component';
 
 // De-para de rotas => componentes
 const routes: Routes = [
     {
-        path: '', /* localhost:4200/ */
-        component: SignInComponent,
+        path: '',
         /* 
-            Especifica qual é a guarda de rota.
-            Pode ser mais de uma, com responsabilidades
-            diferentes, por isso [].
-
-            Geralmente o AngularCLI se perde quando
-            colocamos um guardião de rota.
-            Por isso é bom reiniciar o AngularCLI.
-         */
-        canActivate: [AuthGuard]
+            Quando a rota localhost:4200 for acessada,
+            haverá o redirecionamento para /home
+        
+            Para especificar que precisa ser a rota
+            exatamente igual (/),
+            caso contrário ele pegaria /qualquer coisa.
+        */
+        pathMatch: 'full',
+        redirectTo: 'home'
     },
     {
-        path: 'signup',
-        component: SignUpComponent        
+        path: 'home',
+        /* 
+            Indicação do carregamento
+            vai lazy loading.
+            
+            módulo#classe
+        */
+        loadChildren: './home/home.module#HomeModule'
     },
     {
         path: 'user/:userName',

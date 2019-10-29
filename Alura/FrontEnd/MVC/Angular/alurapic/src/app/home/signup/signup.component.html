@@ -10,7 +10,7 @@
     ao submeter o formulário, seja executado o
     método login().
  -->
-<form [formGroup]="signupForm" class="form mt-4">
+<form [formGroup]="signupForm" class="form mt-4" (submit)="signup()">
     <!--
         A string atribuida a formControlName
         precisa bater com:
@@ -51,7 +51,7 @@
     -->
     
     <div class="form-group">
-        <input formControlName="email" placeholder="email" class="form-control" autofocus >
+        <input #emailInput formControlName="email" placeholder="email" class="form-control" autofocus >
         <ap-vmessage
             *ngIf="signupForm.get('email').errors?.required"
             text="Email is required!">
@@ -136,5 +136,5 @@
      -->
      <button [disabled]="signupForm.invalid || signupForm.pending" class="btn btn-primary btn-block">Register</button>
 
-    <p>Already a user?<a [routerLink]="['']">Sign In!</a></p>
+    <p>Already a user? <a [routerLink]="['']">Sign In!</a></p>
 </form>

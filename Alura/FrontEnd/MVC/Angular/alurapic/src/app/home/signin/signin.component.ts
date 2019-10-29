@@ -58,11 +58,13 @@ export class SignInComponent implements OnInit {
     
     ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
-            userName: ['', Validators.required], /* form control que será associado ao input de user name */
-            password: ['', Validators.required]  /* form control que será associado ao input de password */
-
-            // Primeiro parâmetro do array é o valor padrão
+            userName: ['', Validators.required], /* form control que será associado ao input de user name. */
+            password: ['', Validators.required]  /* form control que será associado ao input de password. */
+            // Primeiro parâmetro do array é o valor padrão.
         });
+
+        this.platformDetectorService.isPlatformBrowser() &&
+            this.userNameInput.nativeElement.focus();
     }
     
     login() {
@@ -80,23 +82,23 @@ export class SignInComponent implements OnInit {
                     
                     /* 
                         Embora estejamos trabalhando com o wrapper do Angular
-                        precisou-se acessar o elemento nativo do DOM para dar o foco
+                        precisou-se acessar o elemento nativo do DOM para dar o foco.
 
                         Nesse caso, não podemos usar o Renderer, tal como na diretiva,
-                        para evitar problemas em caso de renderização no em server side
+                        para evitar problemas em caso de renderização em server side.
 
                         O uso não foi possível, pois na versão atual do Renderer,
                         o método invokeMethod(), que pemitiria a invocação de um
-                        método do elemento do DOM como focus(), foi deprecated
+                        método do elemento do DOM como focus(), foi deprecated.
 
                         Para ficar protegido de possíveis problemas em caso
                         de renderização em server side, quando não for possível usar o Renderer,
                         usuaremos o serviço PlatformDetectorService criado
                         para executar a instrução apenas se eu tiver certeza
                         que a plataforma utilizada pelo usuário é o browser
-                    */                    
+                    */
                     this.platformDetectorService.isPlatformBrowser() &&
-                        this.userNameInput.nativeElement.focus()
+                        this.userNameInput.nativeElement.focus();
                     
                     alert('Invalid user name or password');
                 }

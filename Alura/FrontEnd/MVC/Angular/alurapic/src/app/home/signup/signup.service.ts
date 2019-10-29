@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
+import { NewUser } from './new-user';
+
 /* 
     No Angular, não podemos fazer requisição AJAX
     na mão, ou então usar JQuery
@@ -29,5 +31,9 @@ export class SignUpService {
 
     checkUserNameTaken(userName: string){
         return this.http.get(`${API}/user/exists/${userName}`);
+    }
+
+    signup(newUser: NewUser) {
+        return this.http.post(`${API}/user/signup`, newUser);
     }
 }

@@ -20,6 +20,8 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     
     PhotosModule,
+    ErrorsModule,
+    CoreModule,
     
     // Ao importar AppRoutingModule
     // já temos BrowserModule com as rotas configuradas
@@ -31,11 +33,7 @@ import { CoreModule } from './core/core.module';
     // ele se perde caso esteja em execução
     // Portanto, é necessário parar a execução
     // e iniciar novamente
-    AppRoutingModule,
-
-    ErrorsModule,
-    HomeModule,
-    CoreModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
