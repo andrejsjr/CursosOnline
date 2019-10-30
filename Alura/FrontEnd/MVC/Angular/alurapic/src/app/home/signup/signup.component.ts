@@ -9,7 +9,16 @@ import { SignUpService } from './signup.service';
 import { PlatformDetectorService } from 'src/app/core/plataform-detector/plataform-detector.service';
 
 @Component({
-    templateUrl: './signup.component.html'    
+    templateUrl: './signup.component.html',
+    
+    /* 
+        Provê um UserNotTakenValidatorService
+        para a injeção automática no componente,
+        já que UserNotTakenValidatorService
+        não está configurado com providedIn: 'root'
+        no decorator @Injectable.
+    */
+    providers: [UserNotTakenValidatorService]
 })
 export class SignUpComponent implements OnInit {
     

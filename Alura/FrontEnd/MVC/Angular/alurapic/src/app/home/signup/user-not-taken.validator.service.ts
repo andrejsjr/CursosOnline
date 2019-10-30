@@ -15,10 +15,15 @@ import { SignUpService } from "./signup.service";
     ser, "ao mesmo tempo", um validador e um serviço.
 */
 
-@Injectable({
-    // Única instância para aplicação inteira.
-    providedIn: 'root'
-})
+/* 
+    Como será injetado apenas SignUpComponent,
+    não faz sentido ter o providedIn: 'root'
+    em @Injectable.
+    No caso, o próprio SignUpComponent está
+    provendo um SignUpComponent para injeção
+    em sí mesmo.
+*/
+@Injectable()
 export class UserNotTakenValidatorService {
     
     constructor(private signUpService: SignUpService) { }

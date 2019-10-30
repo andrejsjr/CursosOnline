@@ -8,6 +8,7 @@ import { SignUpComponent } from './signup/signup.component';
 import { VMessageModule } from '../shared/components/vmessage/vmessage.module';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing.module';
+import { SignUpService } from './signup/signup.service';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,7 @@ import { HomeRoutingModule } from './home.routing.module';
         RouterModule,
 
         HomeRoutingModule
-    ]
+    ],
     
     /* 
         SignInComponent SignOutComponente
@@ -40,6 +41,15 @@ import { HomeRoutingModule } from './home.routing.module';
         de outro componente.
         Possuem escopo de página.
     */
+
+    /* 
+        Provendo SignUpService para qualquer
+        artefato do módulo que queira uma
+        injeção do mesmo.
+    */
+    providers: [
+        SignUpService
+    ]
 })
 export class HomeModule {
 
