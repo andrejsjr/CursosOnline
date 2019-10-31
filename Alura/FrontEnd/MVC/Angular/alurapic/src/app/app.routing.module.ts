@@ -25,7 +25,7 @@ const routes: Routes = [
         path: 'home',
         /* 
             Indicação do carregamento
-            vai lazy loading.
+            via lazy loading.
             
             módulo#classe
         */
