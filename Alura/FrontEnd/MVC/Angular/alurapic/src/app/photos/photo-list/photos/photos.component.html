@@ -6,13 +6,13 @@
 <!-- Classes do Bootstrap e Font Awesone (fa) -->
 <ol class="list-unstyled">
     <!--
-        Como o grid do Bootstrap possui até 12 colunas
-        cada linha possuirá 3 fotos
-        Cada foto ocupará 4 colunas
+        Como o grid do Bootstrap possui até 12 colunas,
+        cada linha possuirá 3 fotos.
+        Cada foto ocupará 4 colunas.
 
         Utilizamos a diretiva DarkenOnHoverDirective
         que criamos como atributo, por isso colocamos
-        apDarkenOnHover (selector) como atributo
+        apDarkenOnHover (selector) como atributo.
     -->
     <li *ngFor="let cols of rows" class="row no-gutters">
         <div *ngFor="let photo of cols" class="col-4" apDarkenOnHover>
