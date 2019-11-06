@@ -17,24 +17,24 @@ export class DarkenOnHoverDirective {
     
     constructor(
         /* 
-            Ao usarmos um ElementRef no contructor
+            Ao usarmos um ElementRef no contructor,
             o angular injeta como dependência o elemento do DOM
-            onde a diretiva foi utilizada
+            onde a diretiva foi utilizada.
 
             Esse elemento não é o elemento nativo,
             é um wrapper do Angular para elementos do DOM,
             para que se possa trabalhar com o elemento
-            de forma integrada ao framework
+            de forma integrada ao framework.
         */    
         private el: ElementRef,
         
         /* 
-            Também injetado pelo Angular
+            Também injetado pelo Angular.
             Pemite manipular o DOM sem escrever diretamente
-            o que se deseja fazer
+            o que se deseja fazer.
 
             Garante que o código não vai dar problema
-            caso haja uma renderização em server side
+            caso haja uma renderização em server side.
         */
         private render: Renderer
     ) { }
