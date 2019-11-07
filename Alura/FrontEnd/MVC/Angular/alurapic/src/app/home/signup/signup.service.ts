@@ -24,8 +24,8 @@ const API = 'http://localhost:3000';
 /* 
     Como queremos que SignUpService
     esteja disponível para qualquer
-    artefato que esteja dentro de HomoModule
-    apenas, faremos essa configuração em HomeModule.
+    artefato que esteja dentro de HomeModule apenas,
+    faremos essa configuração em HomeModule.
     Não usaremos, portanto, providedIn: 'root' em @Injectable.
 */
 @Injectable()
