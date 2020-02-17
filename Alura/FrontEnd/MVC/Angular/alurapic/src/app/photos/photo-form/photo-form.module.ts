@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+import { VMessageModule } from 'src/app/shared/components/vmessage/vmessage.module';
 import { PhotoFormComponent } from './photo-form.component';
 
 @NgModule({
@@ -12,7 +14,10 @@ import { PhotoFormComponent } from './photo-form.component';
             É uma boa prática importar esse módulo
             em todos os módulos criados
         */
-        CommonModule
+        CommonModule,
+        ReactiveFormsModule,
+        VMessageModule,
+        FormsModule
     ]
 })
 export class PhotoFormModule {}
