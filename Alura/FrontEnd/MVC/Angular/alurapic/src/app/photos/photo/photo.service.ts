@@ -39,4 +39,18 @@ export class PhotoService {
         return this.http
             .get<Photo[]>(`${API}/${userName}/photos`, { params });
     }
+
+    upload(description: string, allowComments: boolean, file: File) {
+        /*
+            Pelo fato de ter uma arquivo da jogada,
+            não podemos enviar um json para o post().
+            Por isso estamos criando e passando um FormData.
+        */
+        const formData = new FormData();
+        formData.append('description', description);
+        formData.append('allowComments', allowComments ? 'true' : 'false');
+        formData.append('imageFile', file);
+
+        return this.http.post(`${API}/photos/upload`, formData);
+    }
 }
