@@ -4,13 +4,37 @@ import { RouterModule, Routes } from '@angular/router';
 import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 
 // De-para de rotas => componentes
 const routes: Routes = [
-    { path: 'user/:userName', component: PhotoListComponent },
-    { path: 'p/add', component: PhotoFormComponent },
+    {
+        path: 'user/:userName',
+        component: PhotoListComponent,
+        
+        /*
+            Como o Resolver entra em ação na hora da ativação
+            da rota, precisa ser indicado aqui.
+        */
+        resolve: {
+            /*
+                Property photos do objeto resolve terá acesso
+                ao retorno de PhotoListResolver
+            */
+            photos: PhotoListResolver
+        }
+    },
+    
+    {
+        path: 'p/add',
+        component: PhotoFormComponent
+    },
+    
     //Qualquer outro path (**)
-    { path: '**', component: NotFoundComponent }
+    {
+        path: '**',
+        component: NotFoundComponent
+    }
 ];
 
 @NgModule({

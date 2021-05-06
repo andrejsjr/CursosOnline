@@ -1,0 +1,10 @@
+<div class="card border-light text-center">
+    <h4 class="card-header">{{ title }}</h4>
+    <div class="card-block text-justify">
+        <!-- Diretiva do Angular usada para indicar que
+        o conteúdo do elemento (div) presente no template
+        do componente será um template de outro componente
+        que usa este componente (ap-card). -->
+        <ng-content></ng-content>
+    </div>
+</div>

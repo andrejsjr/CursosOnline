@@ -1,1 +1,17 @@
-<ap-photos [photos]="photos"></ap-photos>
+<!-- onTyping é um @Output property com um EventEmitter<T>.
+O valor emitido cairá em @event. -->
+<ap-search    
+    (onTyping)="filter = $event"
+    [value]="filter">
+</ap-search>
+
+<!-- O pipe é um "tubo" por onde algo entra e sai
+após sofrer uma transformação.
+No exemplo abaixo, entrará o array de fotos
+obtido do backend e sairá um array filtrado
+por descricao. -->
+<ap-photos
+    [photos]="photos | filterByDescription : filter">
+</ap-photos>
+
+<ap-load-button (click)="load()" [hasMore]="hasMore"></ap-load-button>

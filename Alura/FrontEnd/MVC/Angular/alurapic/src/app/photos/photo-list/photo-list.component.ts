@@ -12,6 +12,13 @@ import { PhotoService } from '../photo/photo.service';
 export class PhotoListComponent implements OnInit {
 
   photos: Photo[] = [];
+  filter = '';
+
+  // Para saber se tem mais photos para exibir.
+  hasMore = true;
+
+  currentPage = 1;
+  userName = '';
 
   /*
     Padronizamos deixar os constructors apenas
@@ -28,10 +35,29 @@ export class PhotoListComponent implements OnInit {
     ser instanciado e receber as inbounds properties.
   */
   ngOnInit(): void {
-    const userName = this.activetedRoute.snapshot.params.userName;
+    this.userName = this.activetedRoute.snapshot.params.userName;
     
+    /* 
+      Quando a rota ativada (activetedRoute) possui um
+      Resolver associado, snapshot.data possui o objeto
+      retornado pelo Resolver, no caso photos, que é
+      um Observable<Photo[]>.
+    */ 
+    this.photos = this.activetedRoute.snapshot.data.photos;
+  }
+
+  load() {
     this.photoService
-      .listFromUser(userName)
-      .subscribe(photos => this.photos = photos);
+      .listFromUserPaginated(this.userName, ++this.currentPage)
+      .subscribe(photos => {
+        this.filter = '';
+        
+        // Não muda a referência de this.photos
+        // não sensilizando assim o change detection
+        // do Angular.
+        // this.photos.push(...photos);
+        this.photos = this.photos.concat(photos);
+        this.hasMore = !!photos.length;
+      });
   }
 }
