@@ -1,0 +1,65 @@
+<h4 class="text-center">Login</h4>
+
+<!-- 
+    A diretiva formGroup disponibilizada através do
+    módulo ReactiveFormsModule faz a ligação do formulário
+    do template com o FormGroup presente no componente.
+    
+    A diretiva formControlName, também disponibilizada através
+    do módulo ReactiveFormsModule, associa os inputs aos campos
+    do FormGroup (FormControls) presente no componente.
+-->
+<form [formGroup]="loginForm" class="form mt-4">
+
+    <div class="form-group">
+        <input 
+            formControlName="userName"
+            class="form-control" 
+            placeholder="user name" 
+            autofocus>
+        <!--
+            Em get passamos o nome do FormControl (o campo do FormGroup).
+            erros."regra de validação usada no Validators."
+            Os erros que ocorrerem estarão presentes em "erros".
+            Se nenhum erro ocorrer, "erros" não existirá.
+        -->
+        <small
+            *ngIf="loginForm.get('userName').errors?.required"
+            class="text-danger d-block mt-2">
+            User name is required!
+        </small>  
+    </div>
+
+    <div class="form-group">
+        <input
+            formControlName="password"
+            type="password" 
+            class="form-control" 
+            placeholder="password">
+        <!--
+            Em get passamos o nome do FormControl (o campo do FormGroup).
+            erros."regra de validação usada no Validators."
+            Os erros que ocorrerem estarão presentes em "erros".
+            Se nenhum erro ocorrer, "erros" não existirá.
+        -->
+        <small            
+            *ngIf="loginForm.get('password').errors?.required"            
+            class="text-danger d-block mt-2">
+            Password is required!
+        </small>              
+    </div>
+
+    <!--
+        Se algum FormControl não validar,
+        loginForm.invalid retornará true. 
+    -->
+    <button 
+        [disabled]="loginForm.invalid"
+        type="submit" 
+        class="btn btn-primary btn-block">
+        login
+    </button>
+
+</form>
+
+<p>Not a user?<a>Register now</a></p>
