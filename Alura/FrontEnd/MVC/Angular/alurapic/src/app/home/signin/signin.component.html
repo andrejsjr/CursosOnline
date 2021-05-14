@@ -9,10 +9,11 @@
     do módulo ReactiveFormsModule, associa os inputs aos campos
     do FormGroup (FormControls) presente no componente.
 -->
-<form [formGroup]="loginForm" class="form mt-4">
+<form [formGroup]="loginForm" class="form mt-4" (submit)="login()">
 
     <div class="form-group">
         <input 
+            #userNameInput    
             formControlName="userName"
             class="form-control" 
             placeholder="user name" 
@@ -23,11 +24,10 @@
             Os erros que ocorrerem estarão presentes em "erros".
             Se nenhum erro ocorrer, "erros" não existirá.
         -->
-        <small
+        <ap-vmessage
             *ngIf="loginForm.get('userName').errors?.required"
-            class="text-danger d-block mt-2">
-            User name is required!
-        </small>  
+            text="User name is required!">
+        </ap-vmessage>
     </div>
 
     <div class="form-group">
@@ -42,11 +42,10 @@
             Os erros que ocorrerem estarão presentes em "erros".
             Se nenhum erro ocorrer, "erros" não existirá.
         -->
-        <small            
+        <ap-vmessage
             *ngIf="loginForm.get('password').errors?.required"            
-            class="text-danger d-block mt-2">
-            Password is required!
-        </small>              
+            text="Password is required!">
+        </ap-vmessage>
     </div>
 
     <!--

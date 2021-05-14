@@ -41,7 +41,7 @@ export class DarkenOnHoverDirective {
         /*
             Não manipularemos o DOM diretamente através de el.
             Usaremos o Renderer porque ele garante a rendereção
-            do DOM mesmo no backend (Angular Universe).
+            do DOM mesmo no backend (Angular Universal).
         */
 
         /*
