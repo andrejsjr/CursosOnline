@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit, OnDestroy {
                 o subscribe() do Subject não termina após a primeira
                 emissão. Ele fica ativo o tempo todo escutando
                 novas emissões, já que uma nova emissão pode ocorrer
-                a qualquer hora através do .next().
+                a qualquer momento.
             */
             .subscribe(filter => this.onTyping.emit(filter));
     }    
