@@ -6,6 +6,7 @@ import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
 import { SignInComponent } from './home/signin/signin.component';
+import { SignUpComponent } from './home/signup/signup.component';
 import { AuthGuard } from './core/auth/auth.guard';
 
 // De-para de rotas => componentes
@@ -20,6 +21,11 @@ const routes: Routes = [
             e tente acessar a página de login.
         */
         canActivate: [AuthGuard]
+    },
+    
+    {
+        path: 'signup',
+        component: SignUpComponent,
     },
     
     {
