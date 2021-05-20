@@ -64,6 +64,17 @@ export class SignInComponent implements OnInit {
             userName: ['', Validators.required],
             password: ['', Validators.required]
         });
+
+        /*
+            Como não queremos manipular diretamente o DOM
+            através de userNameInput, evitando problemas de
+            renderização em server side (Angular Universal),
+            e não podemos usar Renderer para invocar métodos,
+            condicionamos a execução do método focus() à certeza
+            de estar rodando o código em um browwer.
+        */
+        this.platformDetectorService.isPlatformBrowser() &&
+            this.userNameInput.nativeElement.focus();
     }
 
     login() {

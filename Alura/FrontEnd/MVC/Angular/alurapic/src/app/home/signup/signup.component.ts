@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { PlatformDetectorService } from 'src/app/core/platform-detector/platform-detector.service';
 import { lowerCaseValidator } from 'src/app/shared/validators/lower-case.validator';
 import { NewUser } from './new-user';
 import { SignUpService } from './signup.service';
@@ -15,18 +16,34 @@ import { UserNotTakenValidatorService } from './user-not-taken.validator.service
         Quem irá carregá-lo será o sistema de módulos do Angular
         através da tag <routeroutlet></routeroutlet>.
     */
-    templateUrl: './signup.component.html'
+    templateUrl: './signup.component.html',
+    /*
+        O próprio componente quando for carregado
+        vai prover o UserNotTakenValidatorService.
+    */
+    providers: [UserNotTakenValidatorService]
 })
 export class SignUpComponent implements OnInit { 
 
     // Controla o form existente no template.
     signupForm: FormGroup;
 
+    /*
+        @ViewChild injeta uma referencia do elemento do DOM.
+        O parâmetro ('inputEmail') é o nome da variável
+        de template usada pelo elemento do DOM.
+
+        ElementRef é generics e pode receber tipos específicos
+        fornecidos pelo Type Script para tratar elementos DOM.
+    */
+    @ViewChild('emailInput') emailInput: ElementRef<HTMLInputElement>;
+
     constructor(
         private formBuilder: FormBuilder,
         private userNotTakenValidatorService: UserNotTakenValidatorService,
         private signUpService: SignUpService,
-        private router: Router
+        private router: Router,
+        private platformDetectorService: PlatformDetectorService
     ) { }
     
     ngOnInit(): void {
@@ -83,6 +100,17 @@ export class SignUpComponent implements OnInit {
                 ]
             ]
         });
+
+        /*
+            Como não queremos manipular diretamente o DOM
+            através de userNameInput, evitando problemas de
+            renderização em server side (Angular Universal),
+            e não podemos usar Renderer para invocar métodos,
+            condicionamos a execução do método focus() à certeza
+            de estar rodando o código em um browwer.
+        */
+        this.platformDetectorService.isPlatformBrowser() &&
+            this.emailInput.nativeElement.focus();
     }
 
     signup() {

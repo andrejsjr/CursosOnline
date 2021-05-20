@@ -5,28 +5,23 @@ import { PhotoFormComponent } from './photos/photo-form/photo-form.component';
 import { PhotoListComponent } from './photos/photo-list/photo-list.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { PhotoListResolver } from './photos/photo-list/photo-list.resolver';
-import { SignInComponent } from './home/signin/signin.component';
-import { SignUpComponent } from './home/signup/signup.component';
-import { AuthGuard } from './core/auth/auth.guard';
 
 // De-para de rotas => componentes
 const routes: Routes = [
     {
         path: '', // Raiz da aplicação => localhost:4200/
-        component: SignInComponent,
-        
-        /*
-            Guarda de rotas que redireciona automaticamente para
-            a página fotos do usuário caso o mesmo esteja logado
-            e tente acessar a página de login.
-        */
-        canActivate: [AuthGuard]
+        pathMatch: 'full', // EXATAMENTE a rota especificada em path.
+        redirectTo: 'home'
     },
     
     {
-        path: 'signup',
-        component: SignUpComponent,
-    },
+        path: 'home',
+        /*
+            Carregamento via LAZY LOADING...
+            './pasta/arquivo-do-modulo#classe-do-modulo'
+        */
+        loadChildren: './home/home.module#HomeModule'
+    },    
     
     {
         path: 'user/:userName',

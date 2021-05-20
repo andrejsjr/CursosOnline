@@ -4,11 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { VMessageModule } from '../shared/components/vmessage/vmessage.module';
+import { HomeRoutingModule } from './home.routing.module';
+import { HomeComponent } from './home.component';
 import { SignInComponent } from './signin/signin.component';
 import { SignUpComponent } from './signup/signup.component';
+import { SignUpService } from './signup/signup.service';
 
 @NgModule({
     declarations: [
+        HomeComponent,
         SignInComponent,
         SignUpComponent
     ],
@@ -29,12 +33,21 @@ import { SignUpComponent } from './signup/signup.component';
             depende de RouterModule, por isso estamos importanto-o
             mesmo assim.
         */
-       RouterModule
-    ]
+       RouterModule,
+       HomeRoutingModule
+    ],
     /*
         Não precisa exportar SignInComponent pois o mesmo
         não será carregado no template de nenhum outro
         componente (escopo de página).
     */
+    
+    /*
+        Todos os componentes do módulo são providos
+        por SignUpService.
+    */
+    providers: [
+        SignUpService
+    ]
 })
 export class HomeModule { }
