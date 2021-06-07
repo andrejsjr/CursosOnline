@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { SequelizeModule } from '@nestjs/sequelize/dist/sequelize.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -9,12 +10,13 @@ import { LivrosService } from './livros.service';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: '1234',
+      username: process.env.USUARIO_BANCO_DADOS,
+      password: process.env.SENHA_BANCO_DADOS,
       database: 'livraria',
       //models: [],
       // Para reconhecer automaticamente os modelos do projeto.
@@ -28,7 +30,7 @@ import { LivrosService } from './livros.service';
       synchronize: true
     }),
     // Necessário para reconhecimento dos modelos em autoLoadModels.
-    SequelizeModule.forFeature([Livro])
+    SequelizeModule.forFeature([Livro]),
   ],
   controllers: [
     AppController, 
