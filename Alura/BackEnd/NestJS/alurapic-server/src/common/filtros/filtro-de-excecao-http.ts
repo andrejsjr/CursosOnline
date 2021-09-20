@@ -16,6 +16,7 @@ export class FiltroDeExcecaoHttp implements ExceptionFilter {
     catch(exception: Error, host: ArgumentsHost) {
         // Obtem o contexto HTTP.
         const contexto = host.switchToHttp();
+        
         const requisicao = contexto.getRequest();
         const resposta = contexto.getResponse();
 

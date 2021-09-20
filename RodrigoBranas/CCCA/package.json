@@ -1,0 +1,20 @@
+{
+  "name": "ccca",
+  "version": "1.0.0",
+  "description": "Clean Code e Clean Architecture - Turma 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc && jest dist/",
+    "tsc:init": "tsc --init",
+    "build": "tsc"
+  },
+  "author": "André de Jesus",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "jest": "^27.2.1"
+  }
+}
