@@ -24,7 +24,7 @@
     "@nestjs/common": "^7.6.15",
     "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^7.6.15",
-    "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/platform-express": "^9.2.1",
     "@nestjs/sequelize": "^0.2.0",
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
